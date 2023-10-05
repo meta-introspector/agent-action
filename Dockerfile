@@ -1,9 +1,9 @@
 FROM alpine:latest
 
-LABEL repository="http://github.com/srt32/revert"
-LABEL homepage="http://github.com/srt32/revert"
-LABEL "com.github.actions.name"="Automatic Revert"
-LABEL "com.github.actions.description"="Automatically revert a commit on '/revert' comment"
+LABEL repository="https://github.com/meta-introspector/agent-action"
+LABEL homepage="https://github.com/meta-introspector/agent-action"
+LABEL "com.github.actions.name"="Agent Action"
+LABEL "com.github.actions.description"="Apply '/agent-action' comment"
 LABEL "com.github.actions.icon"="git-pull-request"
 LABEL "com.github.actions.color"="red"
 
