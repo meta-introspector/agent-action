@@ -1,33 +1,32 @@
-# GitHub Action to revert a commit via a comment
+# GitHub Action to run autogpt
 
-After installation, comment `/revert <commit_sha>` to trigger the action.
-
-![revert](https://user-images.githubusercontent.com/2181356/52225171-027d0100-2867-11e9-90a5-84073c790f0b.gif)
-
+After installation, comment `/agent-action` to trigger the action.
 
 ## Installation
 
 ```
-name: Automatic Revert
+name: AUTOGPT
 
 on:
   issue_comment:
     types: [created]
 
 jobs:
-  revert-commit:
+  autogpt:
 
     runs-on: ubuntu-latest
 
-    if: contains(github.event.comment.body, '/revert')
+    if: contains(github.event.comment.body, '/agent-action)
 
     steps:
       - name: Checkout latest code
         uses: actions/checkout@v2
-      - name: Automatic Revert
-        uses: srt32/revert@v0.0.1
+      - name: Autogpt
+        uses: meta-introspector/agent-action@v0.0.1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
  ```      
 
-This Action is heavily inspired by [rebase](https://github.com/cirrus-actions/rebase).
+This Action is heavily inspired by [rebase](https://github.com/srt32/revert).
+which was in turn inspired by [rebase](https://github.com/cirrus-actions/rebase).
+
