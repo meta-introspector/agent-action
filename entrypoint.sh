@@ -36,6 +36,7 @@ set -o xtrace
 #git push origin $HEAD_BRANCH
 
 echo "running"
+pip install docker-compose
 docker-compose up --no-build -d mockopenai
 docker-compose up --no-build --abort-on-container-exit autogpt
 docker-compose down mockopenai
