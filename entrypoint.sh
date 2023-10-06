@@ -51,14 +51,18 @@ echo "running"
 #       --entrypoint "/opt/autogpt/rungpt.sh" h4ckermike/autogpt
 cd /app
 
-for target in http://localhost:8080/v1 http://127.0.0.1:8080/v1 ;
+curl --max-time 3 --retry 3 --head --fail $OPENAI_API_BASE/models || echo pass
+
+docker ps || echo fail
+
+for x in `docker ps -q`;
 do
-    echo $target
-    curl --max-time 3 --retry 3 --head --fail $target/models || echo pass
-    export  OPENAI_API_BASE=$target
-    docker ps || echo fail
-    poetry run autogpt \
-	   --install-plugin-deps \
+    echo $x;
+    docker inspect $x || echo nope
+done
+
+poetry run autogpt \
+       --install-plugin-deps \
 	   --skip-news  \
 	   --ai-name "${AI_NAME}"  \
 	   --ai-role "${AI_ROLE}"   \
@@ -67,5 +71,5 @@ do
 	   --ai-goal "${AI_GOAL_3}"   \
 	   --ai-goal "${AI_GOAL_4}"   \
 	   -y --continuous --continuous-limit 1 || echo skip
-done
+
 docker kill $(docker ps -q) 
