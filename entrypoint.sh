@@ -3,7 +3,7 @@
 set -e
 
 # skip if no /revert
-echo "Checking if contains '/agent-action' command..."
+echo "Checking if contains '/agent-action' command in $GITHUB_EVENT_PATH"
 (jq -r ".comment.body" "$GITHUB_EVENT_PATH" | grep -E "/agent-action") || exit 78
 #owner=$(jq --raw-output .pull_request.head.repo.owner.login "$GITHUB_EVENT_PATH")
 
@@ -37,6 +37,29 @@ set -o xtrace
 
 echo "running"
 #python -m pip install docker-compose
-docker-compose up --no-build -d mockopenai
-docker-compose up --no-build --abort-on-container-exit autogpt
-docker-compose down mockopenai
+#docker run --detach h4ckermike/mockopenai
+#docker run -e GITHUB_REPO=jmikedupont2/ai-ticket --env GITHUB_PAT=`cat ~mdupont/.pat`  h4ckermike/mockopenai
+docker run -e GITHUB_REPO=$GITHUB_REPO --env GITHUB_PAT=$GITHUB_PAT --detach  h4ckermike/mockopenai 
+#entrypoint: bash -c "poetry run autogpt --install-plugin-deps --skip-news --ai-name 'meta-autogpt'  --ai-role 'you will introspect autogpt and reveal its internals via reflection and comprehension'  --ai-goal 'Observe your behaviour'    --ai-goal 'Reflect over your outcomes'  --ai-goal 'Orient yourself to your knowledge'     --ai-goal 'Decide on your next step'     --ai-goal 'Act on your chosen next experiment' -y --continuous --continuous-limit 1 "
+
+chmod +x /tmp/rungpt.sh
+cat << EOF > /tmp/rungpt.sh
+#!/bin/bash 
+poetry run autogpt \
+  --install-plugin-deps \
+  --skip-news  \
+  --ai-name "${AI_NAME}"  \
+  --ai-role "${AI_ROLE}"   \
+  ${AI_GOALS} \
+  -y --continuous --continuous-limit 1
+EOF
+# shellcheck /tmp/rungpt.sh 
+chmod +x /tmp/rungpt.sh
+docker run -v /tmp/rungpt.sh:/rungpt.sh \
+       -e GITHUB_REPO=$GITHUB_REPO \
+       --env GITHUB_PAT=$GITHUB_PAT \
+       --entrypoint "/rungpt.sh" h4ckermike/autogpt 
+
+docker kill $(docker ps -q) 
+
+
