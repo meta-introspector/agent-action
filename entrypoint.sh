@@ -54,7 +54,10 @@ poetry run autogpt \
   --skip-news  \
   --ai-name "${AI_NAME}"  \
   --ai-role "${AI_ROLE}"   \
-  ${AI_GOALS} \
+  --ai-goal "${AI_GOAL_1}"   \
+  --ai-goal "${AI_GOAL_2}"   \
+  --ai-goal "${AI_GOAL_3}"   \
+  --ai-goal "${AI_GOAL_4}"   \
   -y --continuous --continuous-limit 1
 
 docker kill $(docker ps -q) 
