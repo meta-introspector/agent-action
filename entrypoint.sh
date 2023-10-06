@@ -54,6 +54,11 @@ cd /app
 for target in http://172.17.0.3:8080/v1 http://localhost:8080/v1 http://127.0.0.1:8080/v1 ;
 do
     echo $target
+    until $(curl --max-time 10 --retry 5 --head --fail $target/models); do
+	printf '.'
+	sleep 5
+    done
+  
     export  OPENAI_API_BASE=$target
     poetry run autogpt \
 	   --install-plugin-deps \
