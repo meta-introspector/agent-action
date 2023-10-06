@@ -6,7 +6,7 @@ LABEL "com.github.actions.name"="Agent Action"
 LABEL "com.github.actions.description"="Apply '/agent-action' comment"
 LABEL "com.github.actions.icon"="git-pull-request"
 LABEL "com.github.actions.color"="red"
-RUN apt install -y docker-ce  docker-ce-cli
+RUN apt install -y docker-ce  docker-ce-cli jq git 
 
 ADD entrypoint.sh /entrypoint.sh
 ENTRYPOINT ["/entrypoint.sh"]
