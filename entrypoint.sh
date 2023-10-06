@@ -40,7 +40,7 @@ echo "running"
 #docker run --detach h4ckermike/mockopenai
 #docker run -e GITHUB_REPO=jmikedupont2/ai-ticket --env GITHUB_PAT=`cat ~mdupont/.pat`  h4ckermike/mockopenai
 
-docker run -p 127.0.0.1:8080:5000/tcp --name mockopenai -e GITHUB_REPO=$GITHUB_REPO --env GITHUB_PAT=$GITHUB_PAT --detach  h4ckermike/mockopenai 
+docker run --expose 5000 -p 127.0.0.1:8080:5000/tcp --name mockopenai -e GITHUB_REPO=$GITHUB_REPO --env GITHUB_PAT=$GITHUB_PAT --detach  h4ckermike/mockopenai 
 #entrypoint: bash -c "poetry run autogpt --install-plugin-deps --skip-news --ai-name 'meta-autogpt'  --ai-role 'you will introspect autogpt and reveal its internals via reflection and comprehension'  --ai-goal 'Observe your behaviour'    --ai-goal 'Reflect over your outcomes'  --ai-goal 'Orient yourself to your knowledge'     --ai-goal 'Decide on your next step'     --ai-goal 'Act on your chosen next experiment' -y --continuous --continuous-limit 1 "
 #docker ps --verbose || echo ok
 docker inspect mockopenai
@@ -50,7 +50,7 @@ docker inspect mockopenai
 #       --env GITHUB_PAT=$GITHUB_PAT \
 #       --entrypoint "/opt/autogpt/rungpt.sh" h4ckermike/autogpt
 cd /app
-export  OPENAI_API_BASE=http://127.0.0.1:8080/v1
+export  OPENAI_API_BASE=http://localhost:5000/v1
 poetry run autogpt \
   --install-plugin-deps \
   --skip-news  \
