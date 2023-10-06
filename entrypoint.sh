@@ -39,6 +39,8 @@ echo "running"
 #python -m pip install docker-compose
 #docker run --detach h4ckermike/mockopenai
 #docker run -e GITHUB_REPO=jmikedupont2/ai-ticket --env GITHUB_PAT=`cat ~mdupont/.pat`  h4ckermike/mockopenai
+apt install -y docker-ce  docker-ce-cli
+
 docker run -e GITHUB_REPO=$GITHUB_REPO --env GITHUB_PAT=$GITHUB_PAT --detach  h4ckermike/mockopenai 
 #entrypoint: bash -c "poetry run autogpt --install-plugin-deps --skip-news --ai-name 'meta-autogpt'  --ai-role 'you will introspect autogpt and reveal its internals via reflection and comprehension'  --ai-goal 'Observe your behaviour'    --ai-goal 'Reflect over your outcomes'  --ai-goal 'Orient yourself to your knowledge'     --ai-goal 'Decide on your next step'     --ai-goal 'Act on your chosen next experiment' -y --continuous --continuous-limit 1 "
 
@@ -54,7 +56,7 @@ poetry run autogpt \
   -y --continuous --continuous-limit 1
 EOF
 # shellcheck /tmp/rungpt.sh
-apt install -y docker-ce  docker-ce-cli
+
 chmod +x /tmp/rungpt.sh
 docker run -v /tmp/rungpt.sh:/rungpt.sh \
        -e GITHUB_REPO=$GITHUB_REPO \
