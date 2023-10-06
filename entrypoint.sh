@@ -50,6 +50,43 @@ docker inspect mockopenai
 #       --env GITHUB_PAT=$GITHUB_PAT \
 #       --entrypoint "/opt/autogpt/rungpt.sh" h4ckermike/autogpt
 cd /app
+
+export  OPENAI_API_BASE=http://172.17.0.3:5000/v1
+poetry run autogpt \
+  --install-plugin-deps \
+  --skip-news  \
+  --ai-name "${AI_NAME}"  \
+  --ai-role "${AI_ROLE}"   \
+  --ai-goal "${AI_GOAL_1}"   \
+  --ai-goal "${AI_GOAL_2}"   \
+  --ai-goal "${AI_GOAL_3}"   \
+  --ai-goal "${AI_GOAL_4}"   \
+  -y --continuous --continuous-limit 1 || echo skip
+
+export  OPENAI_API_BASE=http://172.17.0.3:8080/v1
+poetry run autogpt \
+  --install-plugin-deps \
+  --skip-news  \
+  --ai-name "${AI_NAME}"  \
+  --ai-role "${AI_ROLE}"   \
+  --ai-goal "${AI_GOAL_1}"   \
+  --ai-goal "${AI_GOAL_2}"   \
+  --ai-goal "${AI_GOAL_3}"   \
+  --ai-goal "${AI_GOAL_4}"   \
+  -y --continuous --continuous-limit 1 || echo skip
+
+export  OPENAI_API_BASE=http://localhost:8080/v1
+poetry run autogpt \
+  --install-plugin-deps \
+  --skip-news  \
+  --ai-name "${AI_NAME}"  \
+  --ai-role "${AI_ROLE}"   \
+  --ai-goal "${AI_GOAL_1}"   \
+  --ai-goal "${AI_GOAL_2}"   \
+  --ai-goal "${AI_GOAL_3}"   \
+  --ai-goal "${AI_GOAL_4}"   \
+  -y --continuous --continuous-limit 1 || echo skip
+
 export  OPENAI_API_BASE=http://localhost:5000/v1
 poetry run autogpt \
   --install-plugin-deps \
@@ -60,7 +97,30 @@ poetry run autogpt \
   --ai-goal "${AI_GOAL_2}"   \
   --ai-goal "${AI_GOAL_3}"   \
   --ai-goal "${AI_GOAL_4}"   \
+  -y --continuous --continuous-limit 1 || echo skip
 
-  -y --continuous --continuous-limit 1
+export  OPENAI_API_BASE=http://127.0.0.1:8080/v1
+poetry run autogpt \
+  --install-plugin-deps \
+  --skip-news  \
+  --ai-name "${AI_NAME}"  \
+  --ai-role "${AI_ROLE}"   \
+  --ai-goal "${AI_GOAL_1}"   \
+  --ai-goal "${AI_GOAL_2}"   \
+  --ai-goal "${AI_GOAL_3}"   \
+  --ai-goal "${AI_GOAL_4}"   \
+  -y --continuous --continuous-limit 1 || echo skip
+
+export  OPENAI_API_BASE=http://127.0.0.1:5000/v1
+poetry run autogpt \
+  --install-plugin-deps \
+  --skip-news  \
+  --ai-name "${AI_NAME}"  \
+  --ai-role "${AI_ROLE}"   \
+  --ai-goal "${AI_GOAL_1}"   \
+  --ai-goal "${AI_GOAL_2}"   \
+  --ai-goal "${AI_GOAL_3}"   \
+  --ai-goal "${AI_GOAL_4}"   \
+  -y --continuous --continuous-limit 1 || echo skip
 
 docker kill $(docker ps -q) 
