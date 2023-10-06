@@ -51,15 +51,12 @@ echo "running"
 #       --entrypoint "/opt/autogpt/rungpt.sh" h4ckermike/autogpt
 cd /app
 
-for target in http://172.17.0.3:8080/v1 http://localhost:8080/v1 http://127.0.0.1:8080/v1 ;
+for target in http://localhost:8080/v1 http://127.0.0.1:8080/v1 ;
 do
     echo $target
-    until $(curl --max-time 10 --retry 5 --head --fail $target/models); do
-	printf '.'
-	sleep 5
-    done
-  
+    curl --max-time 3 --retry 3 --head --fail $target/models || echo pass
     export  OPENAI_API_BASE=$target
+    docker ps || echo fail
     poetry run autogpt \
 	   --install-plugin-deps \
 	   --skip-news  \
