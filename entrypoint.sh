@@ -44,7 +44,6 @@ echo "running"
 docker run -e GITHUB_REPO=$GITHUB_REPO --env GITHUB_PAT=$GITHUB_PAT --detach  h4ckermike/mockopenai 
 #entrypoint: bash -c "poetry run autogpt --install-plugin-deps --skip-news --ai-name 'meta-autogpt'  --ai-role 'you will introspect autogpt and reveal its internals via reflection and comprehension'  --ai-goal 'Observe your behaviour'    --ai-goal 'Reflect over your outcomes'  --ai-goal 'Orient yourself to your knowledge'     --ai-goal 'Decide on your next step'     --ai-goal 'Act on your chosen next experiment' -y --continuous --continuous-limit 1 "
 
-chmod +x /tmp/rungpt.sh
 cat << EOF > /tmp/rungpt.sh
 #!/bin/bash 
 poetry run autogpt \
@@ -55,6 +54,7 @@ poetry run autogpt \
   ${AI_GOALS} \
   -y --continuous --continuous-limit 1
 EOF
+chmod +x /tmp/rungpt.sh
 # shellcheck /tmp/rungpt.sh
 
 chmod +x /tmp/rungpt.sh
