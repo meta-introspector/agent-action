@@ -48,6 +48,7 @@ docker run -e GITHUB_REPO=$GITHUB_REPO --env GITHUB_PAT=$GITHUB_PAT --detach  h4
 #       -e GITHUB_REPO=$GITHUB_REPO \
 #       --env GITHUB_PAT=$GITHUB_PAT \
 #       --entrypoint "/opt/autogpt/rungpt.sh" h4ckermike/autogpt
+cd /app
 poetry run autogpt \
   --install-plugin-deps \
   --skip-news  \
