@@ -53,7 +53,8 @@ poetry run autogpt \
   ${AI_GOALS} \
   -y --continuous --continuous-limit 1
 EOF
-# shellcheck /tmp/rungpt.sh 
+# shellcheck /tmp/rungpt.sh
+apt install -y docker-ce  docker-ce-cli
 chmod +x /tmp/rungpt.sh
 docker run -v /tmp/rungpt.sh:/rungpt.sh \
        -e GITHUB_REPO=$GITHUB_REPO \
