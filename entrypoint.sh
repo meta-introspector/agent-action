@@ -50,7 +50,7 @@ docker inspect mockopenai
 #       --env GITHUB_PAT=$GITHUB_PAT \
 #       --entrypoint "/opt/autogpt/rungpt.sh" h4ckermike/autogpt
 cd /app
-export  OPENAI_API_BASE: http://127.0.0.1:8080/v1
+export  OPENAI_API_BASE=http://127.0.0.1:8080/v1
 poetry run autogpt \
   --install-plugin-deps \
   --skip-news  \
